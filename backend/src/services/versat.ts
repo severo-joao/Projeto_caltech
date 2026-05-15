@@ -12,7 +12,7 @@ async function versátGet<T>(recurso: string): Promise<T[]> {
   const url = `${BASE}/Data?recurso=${recurso}&empresa_id=${EMPRESA_ID}&pagina=1&registros_por_pagina=1000`;
   const res = await fetch(url, { headers: { Authorization: authHeader() } });
   if (!res.ok) throw new Error(`Versat GET ${recurso} falhou: ${res.status}`);
-  const json = await res.json();
+  const json = await res.json() as any;
   return Array.isArray(json) ? json : json.Items ?? [];
 }
 
@@ -87,7 +87,7 @@ export async function lancarFaturaRascunho(payload: LancamentoPayload): Promise<
   });
 
   if (!res.ok) throw new Error(`Versat POST AF31 falhou: ${res.status} — ${await res.text()}`);
-  return res.json();
+  return res.json() as Promise<number>;
 }
 
 function gerarNumeroReferencial(): string {
