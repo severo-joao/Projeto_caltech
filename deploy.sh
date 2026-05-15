@@ -10,13 +10,12 @@ npm ci
 npm run build
 cd ..
 
-# Sobe os containers
+# Build e sobe os containers (arquivo separado, não toca no n8n/crm)
 echo "-> Subindo containers..."
-docker compose down --remove-orphans
-docker compose build --no-cache
-docker compose up -d
+docker compose -f docker-compose.yml down --remove-orphans
+docker compose -f docker-compose.yml build --no-cache
+docker compose -f docker-compose.yml up -d
 
 echo ""
 echo "=== Deploy concluido ==="
-echo "Frontend: http://localhost:3000"
-echo "Backend:  http://localhost:3001"
+echo "App: https://faturas.srv1122212.hstgr.cloud"
